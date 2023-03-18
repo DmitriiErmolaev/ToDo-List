@@ -1,0 +1,9 @@
+.lined-through {
+    text-decoration: line-through;
+}
+body {
+    background-color:antiquewhite
+}
+input {
+    outline:0
+}
