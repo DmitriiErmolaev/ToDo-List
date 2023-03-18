@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import "../src/index.css"
-import CheckList from "./CheckList"
+import CheckList from "./components/CheckList"
 
 
 function App() {
