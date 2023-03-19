@@ -1,23 +1,21 @@
-import React, {useState} from "react";
+import React from "react";
 import DeleteItemButton from "./DeleteItemButton";
 
-export default function Item({toggleProp, index, text, deleteItem}) {
-	const [isChecked, setIsChecked] = useState(false);
+export default function Item({toggleProp, index, text, deleteItem, isChecked}) {
 
   return <>
           <input
             type = "checkbox"
             checked = {isChecked}
-            onChange = {() => setIsChecked(!isChecked)}
+            onChange = {() => toggleProp(index, "isChecked")}
           ></input>
           <span
-            className = {isChecked ?  "listItem lined-through" : "listItem"}
-            onClick = {() => {toggleProp(index, "isEdit")}}
+            className = {isChecked ? "listItem lined-through" : "listItem"}
+            onClick = {() => toggleProp(index, "isEdit")}
           >
             {text}
           </span>
           <DeleteItemButton
-
             index = {index}
             deleteItem = {deleteItem}
           />

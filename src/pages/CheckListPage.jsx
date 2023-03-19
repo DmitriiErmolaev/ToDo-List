@@ -1,13 +1,15 @@
 import React, {useState, useEffect} from "react";
-import ListItem from "./ListItem";
-import NewItemButton from './NewItemButton';
+import ListItem from "../components/ListItem";
+import NewItemButton from '../components/NewItemButton';
 import {nanoid} from "nanoid";
 
 
 
 
-export default function CheckList() {
+export default function CheckListPage() {
 	const [notes,setNotes] = useState([]);
+
+
 
 	function toggleProp(index, propName) {
 		let copy = Object.assign([], notes);
@@ -16,6 +18,12 @@ export default function CheckList() {
 		setNotes(copy)
 	}
 
+  // function toggleIsChecked(index, propName){
+  //   let copy = Object.assign([], notes);
+	// 	copy[index][propName] = !copy[index][propName];
+  //   setNotes(copy)
+  // }
+
 	function handleChange(event, index) {
 		let copy = Object.assign([], notes);
 		copy[index].text = event.target.value;
@@ -23,7 +31,7 @@ export default function CheckList() {
 	}
 
 	function addNewItem() {
-		const newItem = {id:nanoid(), text:"", isEdit:true};
+		const newItem = {id:nanoid(), text:"", isEdit:true, isChecked:false};
 		setNotes([...notes, newItem]);
 	}
 
@@ -53,6 +61,7 @@ export default function CheckList() {
               toggleProp = {toggleProp}
               handleChange = {handleChange}
               deleteItem = {deleteItem}
+              isChecked = {elem.isChecked}
 				    />
 	})
 

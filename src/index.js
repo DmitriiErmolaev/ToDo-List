@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import "../src/index.css"
-import CheckList from "./components/CheckList"
+import "../src/assets/index.css"
+import CheckListPage from "./pages/CheckListPage"
 
 
 function App() {
 	return <div>
-		<CheckList/>
+		<CheckListPage/>
 	</div>
 }
 
