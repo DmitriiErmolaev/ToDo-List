@@ -1,9 +1,9 @@
-import React from "react"
+import React from "react";
 
-export default function NewItemButton({addNewItem}){
-	return <button 
-				onClick={()=> addNewItem()}
-			>
-				Добавить
-			</button>
+export default function NewItemButton({addNewItem}) {
+	return  <button
+            onClick = {() => addNewItem()}
+          >
+            Добавить
+          </button>
 }
