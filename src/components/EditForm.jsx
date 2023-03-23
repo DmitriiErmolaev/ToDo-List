@@ -1,11 +1,14 @@
 import React from "react";
 
-export default function EditForm({text, index, handleChange, toggleProp}){
+export default function EditForm({text, index, handleChange, saveToLocalStorage}){
   return <input
             className = "editinput"
+            autoFocus
             value = {text}
             onChange = {(event) => handleChange(event, index)}
-            onBlur = {() => toggleProp(index, "isEdit")}
-            autoFocus
+            onBlur = {() => saveToLocalStorage(index, "isEdit")}
+            onKeyDown = {(event) => {if (event.code === "Enter") {
+              saveToLocalStorage(index, "isEdit")
+            } }}
           ></input>;
 }
