@@ -3,7 +3,7 @@ import ListItem from "../components/ListItem";
 import Button from '../components/Button';
 import {nanoid} from "nanoid";
 import {getCollection,deleteById,putById} from "../api/todo"
-
+import "../assets/checklistpage.scss"
 
 
 
@@ -82,12 +82,18 @@ export default function CheckListPage() {
 				    />
 	})
 
-	return  <div>
-            <Button name = "new item" func = {addNewItem}/>
-            <Button name = "clear list" func = {clearList}/>
-            <div>
+	return  <div className="main-container">
+            <div class="head-container">
+              <h1>ToDo List</h1>
+              <div className="buttons-container">
+                <Button name = "New Task" func = {addNewItem}/>
+                <Button name = "Clear List" func = {clearList}/>
+              </div>
+            </div>
+            <div className="list-conteiner">
               {result}
             </div>
           </div>
 
 }
+

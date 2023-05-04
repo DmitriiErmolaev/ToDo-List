@@ -1,10 +1,12 @@
 import React from "react";
 import DeleteItemButton from "./DeleteItemButton";
+import "../assets/item.scss"
 
 export default function Item({id, startEdit, index, text, deleteItem, isChecked, saveToLocalStorage}) {
 
   return <>
           <input
+            className="switch"
             type = "checkbox"
             checked = {isChecked}
             onChange = {() => saveToLocalStorage(index, "isChecked")}

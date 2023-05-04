@@ -1,5 +1,6 @@
 import React from "react";
+import "../assets/button.scss"
 
 export default function NewItemButton({name, func}) {
-	return  <button onClick = {() => func()}> {name} </button>
+	return  <a className="button" href="#" onClick = {() => func()}> {name} </a>
 }

@@ -1,8 +1,9 @@
 import React from "react";
+import "../assets/editform.scss";
 
 export default function EditForm({text, index, handleChange, saveToLocalStorage}){
   return <input
-            className = "editinput"
+            className = "edit-input"
             autoFocus
             value = {text}
             onChange = {(event) => handleChange(event, index)}
@@ -10,5 +11,7 @@ export default function EditForm({text, index, handleChange, saveToLocalStorage}
             onKeyDown = {(event) => {if (event.code === "Enter") {
               saveToLocalStorage(index, "isEdit")
             } }}
-          ></input>;
+          ></input>
+
+
 }

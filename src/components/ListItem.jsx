@@ -1,6 +1,7 @@
 import React from "react";
 import EditForm from "./EditForm";
 import Item from "./Item";
+import "../assets/listitem.scss"
 
 export default function ListItem({id, isEdit, text, index, handleChange, startEdit, deleteItem, isChecked,saveToLocalStorage}){
 	let elem;
