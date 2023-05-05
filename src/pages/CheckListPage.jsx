@@ -1,46 +1,62 @@
 import React, {useState, useEffect} from "react";
 import ListItem from "../components/ListItem";
-import NewItemButton from '../components/NewItemButton';
+import Button from '../components/Button';
 import {nanoid} from "nanoid";
-
+import {getCollection,deleteById,putById} from "../api/todo"
+import "../assets/checklistpage.scss"
 
 
 
 export default function CheckListPage() {
 	const [notes,setNotes] = useState([]);
 
+  function setDataFromStorage(){
+    getCollection().then(result => setNotes(result))
+  }
 
-
-	function toggleProp(index, propName) {
-		let copy = Object.assign([], notes);
-		copy[index][propName] = !copy[index][propName];
-    copy = copy.filter(elem => elem.isEdit || elem.text);
-		setNotes(copy)
-	}
-
-  // function toggleIsChecked(index, propName){
-  //   let copy = Object.assign([], notes);
-	// 	copy[index][propName] = !copy[index][propName];
-  //   setNotes(copy)
-  // }
-
-	function handleChange(event, index) {
-		let copy = Object.assign([], notes);
-		copy[index].text = event.target.value;
-		setNotes(copy);
-	}
-
-	function addNewItem() {
+  function addNewItem() {
 		const newItem = {id:nanoid(), text:"", isEdit:true, isChecked:false};
 		setNotes([...notes, newItem]);
 	}
 
-	function deleteItem(index) {
-		let copy = Object.assign([], notes);
-		setNotes([...copy.slice(0,index), ...copy.slice(index+1)]);
+	function deleteItem(id) {
+    deleteById(id).then(()=> setDataFromStorage())
 	}
 
+  function clearList() {
+    localStorage.removeItem('todo_list');
+    setDataFromStorage();
+  }
 
+  function startEdit(position) {
+    setNotes(notes.map((el, index) => {
+      if (position === index) el.isEdit = !el.isEdit;
+      return el;
+    }))
+	}
+
+	function handleChange(event, position) {
+    setNotes(notes.map((el, index) => {
+      if (position === index) el.text = event.target.value;
+      return el;
+    }))
+	}
+  function saveToLocalStorage(index, propName) {
+    let copy = Object.assign([], notes);
+    let note = copy[index]
+		note[propName] = !note[propName];
+
+    if (propName === "isEdit" && note.text === "") {
+      deleteItem(note.id);
+      return;
+    }
+
+    putById(note.id, note, index).then(() => setDataFromStorage());
+  }
+
+  useEffect(()=>{
+    setDataFromStorage()
+  },[])
 
 	useEffect(() => {
 		let input = document.querySelector(".editinput");
@@ -58,18 +74,26 @@ export default function CheckListPage() {
               isEdit = {elem.isEdit}
               text = {elem.text}
               index = {index}
-              toggleProp = {toggleProp}
+              startEdit = {startEdit}
               handleChange = {handleChange}
               deleteItem = {deleteItem}
               isChecked = {elem.isChecked}
+              saveToLocalStorage={saveToLocalStorage}
 				    />
 	})
 
-	return  <div>
-            <NewItemButton addNewItem = {addNewItem}/>
-            <div>
+	return  <div className="main-container">
+            <div class="head-container">
+              <h1>ToDo List</h1>
+              <div className="buttons-container">
+                <Button name = "New Task" func = {addNewItem}/>
+                <Button name = "Clear List" func = {clearList}/>
+              </div>
+            </div>
+            <div className="list-conteiner">
               {result}
             </div>
           </div>
 
 }
+

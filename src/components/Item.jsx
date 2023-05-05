@@ -1,22 +1,24 @@
 import React from "react";
 import DeleteItemButton from "./DeleteItemButton";
+import "../assets/item.scss"
 
-export default function Item({toggleProp, index, text, deleteItem, isChecked}) {
+export default function Item({id, startEdit, index, text, deleteItem, isChecked, saveToLocalStorage}) {
 
   return <>
           <input
+            className="switch"
             type = "checkbox"
             checked = {isChecked}
-            onChange = {() => toggleProp(index, "isChecked")}
+            onChange = {() => saveToLocalStorage(index, "isChecked")}
           ></input>
           <span
             className = {isChecked ? "listItem lined-through" : "listItem"}
-            onClick = {() => toggleProp(index, "isEdit")}
+            onClick = {() => startEdit(index)}
           >
             {text}
           </span>
           <DeleteItemButton
-            index = {index}
+            id = {id}
             deleteItem = {deleteItem}
           />
         </>

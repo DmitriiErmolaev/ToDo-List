@@ -90,13 +90,11 @@ export function add(item) {
  * @param {object} item
  * @returns Promise<object>
  */
-export function putById(id, item) {
+export function putById(id, item, index) {
   return new Promise(resolve => {
     const list = getFromLocalStorage();
     const newElement = {...item, id};
-    const newList = list
-      .filter(el => el.id !== id);
-    newList.push(newElement);
+    const newList = [...list.slice(0,index), newElement, ...list.slice(index+1)]
     setToLocalStorage(newList);
     resolve(true);
   });
