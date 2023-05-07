@@ -3,9 +3,22 @@
  * чтобы было легко заменить
  */
 const STORAGE_INDEX = 'todo_list';
+const STORAGE_COUNTER_INDEX = "global_counter";
 
-function getFromLocalStorage()
-{
+function getStatsFromLocalStorage() {
+  let data = localStorage.getItem(STORAGE_COUNTER_INDEX);
+
+  if (typeof data === 'string') {
+    return JSON.parse(data);
+  }
+  return {};
+}
+
+function setStatsToLocalStorage(stats) {
+  localStorage.setItem(STORAGE_COUNTER_INDEX,JSON.stringify(stats))
+}
+
+function getFromLocalStorage() {
   const data = localStorage.getItem(STORAGE_INDEX);
   if (typeof data === 'string') {
     return JSON.parse(data);
@@ -13,8 +26,7 @@ function getFromLocalStorage()
   return [];
 }
 
-function setToLocalStorage(list)
-{
+function setToLocalStorage(list) {
   localStorage.setItem(STORAGE_INDEX, JSON.stringify(list));
 }
 
@@ -90,6 +102,7 @@ export function add(item) {
  * @param {object} item
  * @returns Promise<object>
  */
+
 export function putById(id, item, index) {
   return new Promise(resolve => {
     const list = getFromLocalStorage();
@@ -99,3 +112,34 @@ export function putById(id, item, index) {
     resolve(true);
   });
 }
+
+export function countTotalTodosEver(action){
+  return new Promise(resolve => {
+    const stats = getStatsFromLocalStorage();
+
+    if (action === "increase") {
+      stats.globalTodoCounter = stats.globalTodoCounter + 1;
+    }
+    if (action === "decrease") {
+      stats.globalTodoCounter = stats.globalTodoCounter - 1;
+    }
+    setStatsToLocalStorage(stats);
+    resolve(true);
+  })
+}
+
+export function getStats(){
+  return new Promise(resolve => {
+    const list = getFromLocalStorage();
+    const stats = getStatsFromLocalStorage();
+
+    if (!Object.keys(stats).length) {
+      console.log(typeof list.length, list.length)
+      stats.globalTodoCounter = list.length;
+      setStatsToLocalStorage(stats);
+    }
+
+    resolve(stats);
+  })
+}
+

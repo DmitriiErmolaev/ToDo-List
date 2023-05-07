@@ -7,26 +7,33 @@
         color: $visited;
     }
     &:hover {
-        transition: 0.1s all;
         color: $hover;
         background-color: $bghover;
         box-shadow: 0 0 6px 1px #6d3a1f;
+        transition: 0.1s all;
     }
     &:active {
         color: $active;
         box-shadow: inset 0 0 6px 1px #6d3a1f, 0 0 1px #6d3a1f;
-        // font-size:1.47rem;
+        // font-size:1.4rem;
+        span {
+            display:block;
+            transform: scale(0.95);
+        }
     } 
 }
 
 .button {
     flex-basis:190px;
+    padding:15px 33px;
     margin-right:2%;
     border-radius:40px 7px;
-    
-    font: 1.5rem Arial;
-    padding:15px 40px;
+    text-align:center;
+    font: 1.4rem Arial;
     @include button(#6d3a1f,white,#6d3a1f,#6d3a1f4a, #6d3a1f, white)
+}
+.interact {
+    background-color: #3c4d0e ;
 }
 
 @media (max-width:469px) {
@@ -34,7 +41,6 @@
         flex-basis:auto;
         margin-right:0;
         margin-bottom:2%;
-        // align-items:
     }
 }
 @media (max-width:221px) {

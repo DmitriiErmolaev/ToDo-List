@@ -1,18 +1,15 @@
-p {
-    display:flex;
-    background-color:hsl(34, 49%, 56%);
+.list-item {
     padding: 7px 10px;
     margin:10px 0;
     border-radius: 15px 5px;
+    font:italic 1.3rem Calibri;
     color: black;
-    font: 1.3rem Calibri;
-    transition-duration: 0.3s, 0.3s;
-    transition-property: transform, box-shadow;
-    transition-delay: 0s, 0s;
+    background-color:hsl(34, 49%, 56%);
+    transition: transform 0.3s,  box-shadow 0.3s;;
 
     &:hover {
         transform: translate(0, -3px);
-        box-shadow:1px 2px 3px  rgba(0, 0, 0, 0.614);
+        box-shadow: 1px 2px 3px  rgba(0, 0, 0, 0.614);
     }
 }
 

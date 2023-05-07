@@ -1,23 +1,19 @@
-.delete-item-container {
-    align-self:center;
+.task__delete-item {
+    align-self: center;
     margin-left:auto;
     padding-left:15px;
-    background-image: linear-gradient(to right, rgb(177, 30, 251) ,rgb(255, 28, 28));
-    -webkit-background-clip:text;
-    background-clip:text;
     transition: transform 0.2s;
 
     &:active {
         transform:scale(0.9,0.9)
     }    
 
-    .delete-item-button {       
-        color: rgba(255, 255, 255, 0); 
-        font:bold 1rem Arial;
+    .delete-item__button {       
+        color: #6d3a1f;
     }
+
     @media (max-width:469px) {
-       
-        .delete-item-button {
+        .delete-item__button {
             font-size:0.6rem;
         }
     }

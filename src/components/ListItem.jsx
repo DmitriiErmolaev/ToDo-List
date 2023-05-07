@@ -1,9 +1,9 @@
 import React from "react";
 import EditForm from "./EditForm";
-import Item from "./Item";
+import Task from "./Task";
 import "../assets/listitem.scss"
 
-export default function ListItem({id, isEdit, text, index, handleChange, startEdit, deleteItem, isChecked,saveToLocalStorage}){
+export default function ListItem({id, isEdit, text, index, handleChange, startEdit, deleteItem, isChecked,changeLocalStorage}){
 	let elem;
 
 	if (isEdit) {
@@ -11,19 +11,22 @@ export default function ListItem({id, isEdit, text, index, handleChange, startEd
               text = {text}
               index = {index}
               handleChange = {handleChange}
-              saveToLocalStorage={saveToLocalStorage}
+              changeLocalStorage={changeLocalStorage}
             />
 	} else {
-		elem = <Item
+		elem = <Task
               id = {id}
 					    startEdit = {startEdit}
 					    index = {index}
 					    text = {text}
 					    deleteItem = {deleteItem}
               isChecked = {isChecked}
-              saveToLocalStorage={saveToLocalStorage}
+              changeLocalStorage={changeLocalStorage}
 				    />
 	}
 
-	return	<p>{elem}</p>;
+	return	<div className="list-item">
+    {elem}
+    </div>;
 }
+
