@@ -1,31 +1,35 @@
 import React, {useState, useEffect} from "react";
-import ListItem from "../components/ListItem";
-import Button from '../components/Button';
+// import ListItem from "../components/ListItem";
+import Header from '../components/Header';
+import TodoList from "../components/TodoList";
+import Stats from "../components/Stats";
 import {nanoid} from "nanoid";
-import {getCollection,deleteById,putById} from "../api/todo"
-import "../assets/checklistpage.scss"
+import {getCollection,deleteById,putById, countTotalTodosEver} from "../api/todo";
+import "../assets/checklistpage.scss";
+import {Routes, Route} from "react-router-dom";
 
 
 
 export default function CheckListPage() {
 	const [notes,setNotes] = useState([]);
 
-  function setDataFromStorage(){
+  function getDataFromStorage(){
     getCollection().then(result => setNotes(result))
   }
 
   function addNewItem() {
+    countTotalTodosEver("increase");
 		const newItem = {id:nanoid(), text:"", isEdit:true, isChecked:false};
 		setNotes([...notes, newItem]);
 	}
 
 	function deleteItem(id) {
-    deleteById(id).then(()=> setDataFromStorage())
+    deleteById(id).then(()=> getDataFromStorage())
 	}
 
   function clearList() {
     localStorage.removeItem('todo_list');
-    setDataFromStorage();
+    getDataFromStorage();
   }
 
   function startEdit(position) {
@@ -41,21 +45,35 @@ export default function CheckListPage() {
       return el;
     }))
 	}
-  function saveToLocalStorage(index, propName) {
+
+  function changeLocalStorage(index, propName) {
     let copy = Object.assign([], notes);
     let note = copy[index]
 		note[propName] = !note[propName];
 
     if (propName === "isEdit" && note.text === "") {
       deleteItem(note.id);
+      countTotalTodosEver("decrease");
       return;
     }
 
-    putById(note.id, note, index).then(() => setDataFromStorage());
+    putById(note.id, note, index).then(() => getDataFromStorage());
+
+  }
+
+  function getNumOfTasks(){
+    let activeTodosNumber = 0;
+    let completedTodosNumber = 0;
+
+    notes.forEach(todo => {
+      todo.isChecked ? completedTodosNumber++ : activeTodosNumber++
+    })
+
+    return {completed: completedTodosNumber, active: activeTodosNumber,}
   }
 
   useEffect(()=>{
-    setDataFromStorage()
+    getDataFromStorage()
   },[])
 
 	useEffect(() => {
@@ -67,33 +85,35 @@ export default function CheckListPage() {
 		}
 	})
 
-	const result = notes.map((elem, index) => {
-		return  <ListItem
-              id = {elem.id}
-              key = {elem.id}
-              isEdit = {elem.isEdit}
-              text = {elem.text}
-              index = {index}
-              startEdit = {startEdit}
-              handleChange = {handleChange}
-              deleteItem = {deleteItem}
-              isChecked = {elem.isChecked}
-              saveToLocalStorage={saveToLocalStorage}
-				    />
-	})
-
-	return  <div className="main-container">
-            <div class="head-container">
-              <h1>ToDo List</h1>
-              <div className="buttons-container">
-                <Button name = "New Task" func = {addNewItem}/>
-                <Button name = "Clear List" func = {clearList}/>
-              </div>
-            </div>
-            <div className="list-conteiner">
-              {result}
-            </div>
-          </div>
-
+	return (
+    <div className="wrappper">
+      <Header addNewItem={addNewItem} clearList={clearList}/>
+      <main>
+        <Routes>
+          <Route
+            path = "/list"
+            element = {
+              <TodoList
+                notes = {notes}
+                startEdit = {startEdit}
+                handleChange = {handleChange}
+                changeLocalStorage = {changeLocalStorage}
+                deleteItem = {deleteItem}
+              />
+            }
+          />
+          <Route
+            path = "/stats"
+            element = {
+              <Stats
+                count={notes.length}
+                countedStatus={getNumOfTasks()}
+              />
+            }
+          />
+        </Routes>
+      </main>
+    </div>
+  )
 }
 

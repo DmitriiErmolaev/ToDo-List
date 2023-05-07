@@ -1,8 +1,9 @@
 import React from "react";
 import "../assets/deleteitembutton.scss";
+import {ReactComponent as TrashSVG } from "../assets/trash.svg"
 
 export default function DeleteItemButton({id, deleteItem}) {
-  return  <div className="delete-item-container">
-            <a className="delete-item-button" href="#" onClick={() => deleteItem(id)}> DELETE </a>
+  return  <div className="task__delete-item">
+            <a className="delete-item__button" href="#" onClick={() => deleteItem(id)}> <TrashSVG/> </a>
           </div>
 }
