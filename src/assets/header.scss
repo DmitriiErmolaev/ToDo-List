@@ -5,30 +5,12 @@
 
     .header__title {
         margin-bottom: 0.3em;
-        font: bold 2rem calibri;
+        font: bold 2rem Calibri;
         letter-spacing: 1px;
         color: #471100;
     }
 
     .header__menu {
         display:flex;
-    }
-}
-
-@media (min-width:700px) and (max-width:1000px) {
-    .wrapper {
-        width:80%;
-    }
-}
-
-@media  (max-width:700px) {
-    .wrapper {
-        width:90%;
-    }
-}
-@media (max-width:469px){
-    .header__menu {
-        flex-direction: column;
-        align-items: flex-start;
     }
 }

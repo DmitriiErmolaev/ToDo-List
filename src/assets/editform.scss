@@ -1,8 +1,9 @@
 .edit-form {
     border:none;
-    width:500px;
-    margin-left: calc(20px + 1%);
+    width:100%;
+    min-height:28.6px;
+    padding-left: calc(20px + 1%);
     outline:none;
-    font:italic 1.3rem Calibri;
+    font: inherit;
     background-color: #c69657;
 }
