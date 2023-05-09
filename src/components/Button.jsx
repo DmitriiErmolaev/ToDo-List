@@ -16,9 +16,9 @@ export default function NewItemButton({name, func, mode, path, class_name}) {
   }
 
   if( !path ) {
-	  return  <a className={class_name} href="#" onClick = {() => func()}><span> {name} </span></a>
+	  return  <a className={class_name} href="#" onClick = {() => func()}><span className="button__content"> {name} </span></a>
   } else {
-	  return  <Link className={class_name} to={path} onClick={() => func()}> <span> {name} </span> </Link>
+	  return  <Link className={class_name} to={path} onClick={() => func()}> <span className="button__content"> {name} </span> </Link>
   }
 
 }

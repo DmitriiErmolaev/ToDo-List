@@ -1,5 +1,4 @@
 .wrappper {
-    width:60%;
     max-width:960px;
     min-height:95vh;
     margin:20px auto;
@@ -8,5 +7,9 @@
     background-color:#f7e2bd8d;
     box-shadow: 0 0 6px 1px #0000004a;
     overflow:hidden;
+
+    @media (max-width: 1024px){
+        width:95%;
+    }
 }
 

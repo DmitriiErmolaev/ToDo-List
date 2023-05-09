@@ -13,9 +13,10 @@
 }
 
 .stats__list-item{
+    position: relative;
     width: 49%;
     height:150px;
-    padding:20px;
+    padding:5px 20px 20px;
     margin-bottom:2%;
     border:3px solid hsl(34, 49%, 56%);
     border-top-width: 20px;
@@ -33,7 +34,26 @@
     }
 
     .list-item__content {
+        position: absolute;
         font-size:1.5rem;
+        left:0px;
+        right: 0px;
+        top:calc(50% - 0.5*1.5rem)
     }
 }
 
+@media (max-width:480px) {
+    .stats__list-item {
+        width: 100%;
+        margin-bottom:4%;
+
+
+        &:nth-child(2n) {
+            margin-left: 0;
+        }
+        .list-item__title {
+            font-size: 1.5rem;
+        }
+    }
+    
+}

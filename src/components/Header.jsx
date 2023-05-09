@@ -5,6 +5,8 @@ import "../assets/header.scss";
 
 
 
+
+
 const Header = ({addNewItem, clearList}) => {
   const [mode, setMode] = useState("root")
 
@@ -12,10 +14,10 @@ const Header = ({addNewItem, clearList}) => {
     <header className="header">
       <h1 className="header__title">ToDo List</h1>
       <nav className="header__menu">
-        <Button name = "Show List" class_name="button" mode={mode} path = "/list"  func={() => setMode("list")}/>
-        <Button name = "Show Stats" class_name="button" mode={mode} path = "/stats"  func={() => setMode("stats")}/>
-        <Button name = "New Task" class_name="button interact" mode={mode} func = {addNewItem} />
-        <Button name = "Clear List" class_name="button interact" mode={mode} func = {clearList} />
+        <Button name = "Show List" class_name="button button_show-list" mode={mode} path = "/list"  func={() => setMode("list")}/>
+        <Button name = "Show Stats" class_name="button button_show-stats" mode={mode} path = "/stats"  func={() => setMode("stats")}/>
+        <Button name = "New Task" class_name="button button_new-task interactive" mode={mode} func = {addNewItem} />
+        <Button name = "Clear List" class_name="button button_clear-list interactive" mode={mode} func = {clearList} />
       </nav>
     </header>
   )

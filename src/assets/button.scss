@@ -15,8 +15,8 @@
     &:active {
         color: $active;
         box-shadow: inset 0 0 6px 1px #6d3a1f, 0 0 1px #6d3a1f;
-        // font-size:1.4rem;
-        span {
+        
+        .button__content {
             display:block;
             transform: scale(0.95);
         }
@@ -24,38 +24,69 @@
 }
 
 .button {
-    flex-basis:190px;
-    padding:15px 33px;
-    margin-right:2%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width:32%;
+    max-width: 175px;
+    height: 55.6px;
+    padding:15px 10px;
     border-radius:40px 7px;
-    text-align:center;
-    font: 1.4rem Arial;
-    @include button(#6d3a1f,white,#6d3a1f,#6d3a1f4a, #6d3a1f, white)
+    font-size: 1.4rem;
+    @include button(#6d3a1f,white,#6d3a1f,#6d3a1f4a, #6d3a1f, white);
+
+    &:not(:last-child) {
+        margin-right:2%;
+    }
 }
-.interact {
+
+@media (max-width: 480px) {
+    .button_show-stats .button__content,
+    .button_show-list .button__content,
+    .button_new-task .button__content,
+    .button_clear-list .button__content,
+    .button:active .button__content {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .button {
+        display: flex;
+        justify-content: center;
+        align-items:center;
+        font-size: 1.8rem;
+
+    }
+    .button_show-list {
+        width:70%;
+    }
+    
+    .button_show-stats::before {
+        content:"Stats";
+    }
+    .button_show-list::before {
+        content:"List";
+    }
+    .button_new-task::before {
+        content:"New";
+    }
+    .button_clear-list::before {
+        content:"Clear";
+    }
+    
+    .button:active::before {
+        display:block;
+        transform: scale(0.95);
+    }
+}
+@media (max-width: 350px) {
+    .button:not(.button_show-list) {
+        font-size: 1.4rem;
+    }
+}
+
+.interactive {
     background-color: #3c4d0e ;
 }
 
-@media (max-width:469px) {
-    .button {
-        flex-basis:auto;
-        margin-right:0;
-        margin-bottom:2%;
-    }
-}
-@media (max-width:221px) {
-    .button {
-        font-size:1.2rem
-    }
-}
-@media (max-width:196px) {
-    .button {
-        font-size:1.0rem
-    }
-}
-@media (max-width:179px) {
-    .button {
-        padding: 10% 30%;
-        font-size:0.8rem;
-    }
-}
